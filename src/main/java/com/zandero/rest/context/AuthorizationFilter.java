@@ -12,6 +12,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
+import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 
 @javax.ws.rs.ext.Provider
@@ -48,7 +49,7 @@ public class AuthorizationFilter implements ContainerRequestFilter, ContainerRes
 
 				if (entity.equals("Access forbidden: role not allowed")) {  // see RoleBaseSecurityFilter output
 					RestException wrapper = new RestException(HttpStatus.SC_FORBIDDEN, entity);
-					ctx.setEntity(wrapper.toString());
+					ctx.setEntity(wrapper.toString(), null, MediaType.APPLICATION_JSON_TYPE);
 				}
 			}
 		}
