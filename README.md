@@ -17,9 +17,8 @@ Supports:
 ## Request context
 
 ### Step 1 - create authorization / request context
-By extending the `BaseRequestContext` we create our own Request context.
-One can extract data provided in the request (for instance session id in a cookie) and fill up all necessary fields.
- 
+By extending the `BaseRequestContext` we create our own Request context.  
+We can then extract data provided in the request (for instance session id in a cookie) and fill up all necessary fields.  
 The Request context is **@RequestScoped** - unique for each request hitting the REST.
  
 ```java
