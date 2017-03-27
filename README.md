@@ -2,7 +2,7 @@
 Basic request context and security filtering implementation to be extended and utilized with any RestEasy REST API.
 
 Supports:
-* transformation of request into java object 
+* transformation of request into Java object 
 * implements role based REST API security check
 
 ## Setup
@@ -17,11 +17,16 @@ Supports:
 ## Request context
 
 ### Step 1 - create authorization / request context
-By extending the `BaseRequestContext` we 
+By extending the `BaseRequestContext` we create our own Request context.
+One can extract data provided in the request (for instance session id in a cookie) and fill up all necessary fields.
+ 
+The Request context is **@RequestScoped** - unique for each request hitting the REST.
  
 ```java
 @RequestScoped
 public class MyRequestContext extends BaseRequestContext {
+
+    private final Session session; // our custom session object
 
     /**
      * use request to find out the context (is user logged in?)
@@ -72,7 +77,11 @@ public class MyRequestContext extends BaseRequestContext {
 ```
 
 ## Step 2 - annotate REST with roles
-Once the request/security context is in place we 
+Once the request/security context is in place we can annotate the REST with `@RolesAllowed` annotation.
+The annotated `role` is provided in the `public boolean isUserInRole(String role)` context call, when checking access. 
+
+If the `public boolean isUserInRole(String role)` returns **true** the REST is executed.   
+In case **false** is returned a **403 FORBIDDEN** response is returned.
 
 ```java
 /**
@@ -88,6 +97,8 @@ public String getUserInfo() {
 ```
 
 ## Step 3 - provide request context into REST
+We can access and utilize the Request context if needed.  
+
 ```java
 @Path("/api")
 @Singleton
@@ -106,7 +117,7 @@ public class MyRestApi {
     @Path("/private")
     public String getUserInfo() {
     
-        return ctxProvider.get().getPrincipal();
+        return ctxProvider.get().getPrincipal(); // resolved for each request ... is unique for request
     }
    
 ```
