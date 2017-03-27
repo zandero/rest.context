@@ -70,4 +70,19 @@ public class TestAuthorizationContext extends BaseRestTest {
 		String output = response.readEntity(String.class);
 		assertEquals("{\"code\":404,\"message\":\"Session id unknown!\"}", output);
 	}
+
+	@Test
+	public void forbiddenAccessTest() {
+
+		// make call with invalid session id
+		Response response = new ResteasyClientBuilder()
+			.build()
+			.target(ROOT_URL + "/rest/test/private")
+			.request()
+			.get();
+
+		assertEquals(HttpStatus.SC_FORBIDDEN, response.getStatus());
+		String output = response.readEntity(String.class);
+		assertEquals("{\"code\":403,\"message\":\"Access forbidden: role not allowed\"}", output);
+	}
 }

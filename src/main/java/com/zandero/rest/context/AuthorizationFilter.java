@@ -33,7 +33,7 @@ public class AuthorizationFilter implements ContainerRequestFilter, ContainerRes
 
 	/**
 	 * NOTE: this is a hack ... we are actively listening for the RoleBaseSecurityFilter output
-	 * as no exception is thrown in order to create desired JSON output
+	 * as no exception is thrown in order to create desired JSON output (exception wrapper)
 	 */
 	@Override
 	public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
