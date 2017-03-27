@@ -1,8 +1,8 @@
 package com.zandero.rest.test;
 
-import org.jboss.resteasy.plugins.guice.RequestScoped;
 import com.zandero.http.RequestUtils;
 import com.zandero.rest.context.BaseRequestContext;
+import org.jboss.resteasy.plugins.guice.RequestScoped;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -18,48 +18,49 @@ public class TestRequestContext extends BaseRequestContext {
 
 	private final String session;
 
-		@Inject
-		public TestRequestContext(HttpServletRequest servletRequest) {
+	@Inject
+	public TestRequestContext(HttpServletRequest servletRequest) {
 
-			super(servletRequest);
+		super(servletRequest);
 
-			session = RequestUtils.getHeader(servletRequest, SESSION_HEADER);
-		}
+		session = RequestUtils.getHeader(servletRequest, SESSION_HEADER);
+	}
 
-			/**
-			 * @return user making the request or null if not known
-			 */
-		@Override
-		public Principal getUserPrincipal() {
+	/**
+	 * @return user making the request or null if not known
+	 */
+	@Override
+	public Principal getUserPrincipal() {
 
-			return () -> session;
-		}
+		return () -> session;
+	}
 
-		/**
-		 * Checks if user is in role
-		 * @param role
-		 * @return true if user is in role, false if not
-		 */
-		@Override
-		public boolean isUserInRole(String role) {
+	/**
+	 * Checks if user is in role
+	 *
+	 * @param role
+	 * @return true if user is in role, false if not
+	 */
+	@Override
+	public boolean isUserInRole(String role) {
 
-			return session != null;
-		}
+		return session != null;
+	}
 
-		/**
-		 * @return true if call is secure, false if not
-		 */
-		@Override
-		public boolean isSecure() {
+	/**
+	 * @return true if call is secure, false if not
+	 */
+	@Override
+	public boolean isSecure() {
 
-			return session != null;
-		}
+		return session != null;
+	}
 
-		@Override
-		public String getAuthenticationScheme() {
+	@Override
+	public String getAuthenticationScheme() {
 
-			return null;
-		}
+		return null;
+	}
 
 	public String getSession() {
 

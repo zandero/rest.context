@@ -75,7 +75,20 @@ public class MyRequestContext extends BaseRequestContext {
 }
 ```
 
-## Step 2 - annotate REST with roles
+### Step 2 - bind Authorization filter and request context
+
+public class MyRestModule extends AbstractModule {
+
+```java
+	@Override
+	protected void configure() {
+
+		bind(AuthorizationFilter.class);
+		bind(RequestContext.class).to(MyRequestContext.class);
+	}
+```
+
+## Step 3 - annotate REST with roles
 Once the request/security context is in place we can annotate the REST with `@RolesAllowed` annotation.
 The annotated `role` is provided in the `public boolean isUserInRole(String role)` context call, when checking access. 
 
@@ -95,7 +108,7 @@ public String getUserInfo() {
 }
 ```
 
-## Step 3 - provide request context into REST
+## Step 4 - provide request context into REST
 We can access and utilize the Request context if needed.  
 
 ```java
