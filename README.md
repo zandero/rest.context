@@ -75,6 +75,13 @@ public class MyRequestContext extends BaseRequestContext {
 }
 ```
 
+#### Bind correct @RequestScope 
+Make sure you your @RequestScope properly bound.  
+
+Using either: 
+1. an existing plugin: `import org.jboss.resteasy.plugins.guice.RequestScoped;` and bind new org.jboss.resteasy.plugins.guice.ext.RequestScopeModule();
+1. or implement `GuiceServletContextListener` and bind it
+
 ### Step 2 - bind Authorization filter and request context
 
 public class MyRestModule extends AbstractModule {
