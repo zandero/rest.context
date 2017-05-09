@@ -2,7 +2,7 @@ package com.zandero.rest.context;
 
 import com.google.inject.servlet.RequestScoped;
 import com.zandero.http.RequestUtils;
-import com.zandero.utils.UrlUtils;
+import com.zandero.utils.extra.UrlUtils;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
